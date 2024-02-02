@@ -2,26 +2,29 @@
 #include <string>
 #include <crypt.h>
 #include <random>
+#include "hashcode.h"
+#include <vector>
+#include <chrono>
 
-std::string generateSaltString(const int len) {
+std::string generateSaltString(const int len) {//genere un sel cryptographique utile pour créer un hash
     const std::string charlist = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     std::random_device rd;
     std::mt19937 generator(rd());
-    std::uniform_int_distribution<> distribution(0, charlist.size() - 1);//instancie une distribution uniforme
+    std::uniform_int_distribution<> distribution(0, charlist.size() - 1);//instancie une distribution uniforme sur des entiers
 
     std::string saltString;
-    //on fait len tirages aleatoires dans la liste de caractères
-    for (size_t i = 0; i < len; ++i) {
+    //on fait len tirages aleatoires dans la liste de caractères pour former un code
+    for (int i = 0; i < len; ++i) {
         saltString += charlist[distribution(generator)];
     }
 
     return saltString;
 }
 
-std::string hash(const std::string password,const std::string salt,const bool genSalt=true ,const int saltLength=10,const std::string hashAlg="$5$")
+std::string hash(const std::string password,const std::string salt,const bool genSalt=true ,const int saltLength=10,const std::string hashAlg="$5$")//genere un hash pour éviter de stocker le mot de passe en clair dans la base de donnée. On ajoute un sel pour éviter les attaques de dictionnaire
 {
     //genSalt=true pour generer le premier hash avec le sel (utile pour sign up)
-    //gensalt=false, on ne genere pas le sel, il faut donc le préciser dans le paramètre salt
+    //gensalt=false, on ne genere pas le sel, il faut donc le préciser dans le paramètre salt (utile pour login, le serveur nous envoie le salt a mettre)
     std::string saltString;
     if(genSalt)
     {
@@ -38,23 +41,19 @@ std::string hash(const std::string password,const std::string salt,const bool ge
     return hash;
 }
 
+const std::vector<float> generateCote(const int numberOfTeams)//Genere numberOfTeams cotes entre 1.1 et 2.1
+{
+    std::vector<float> cotes(numberOfTeams);
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    std::uniform_real_distribution<> distribution(1.1,2.1);//instancie une distribution uniforme sur des réels
 
-int main() {
-    // std::string password = "myPassword";
-    // const int saltLength=10;//utile pour la protection contre les attaques de dictionnaire
-    // const std::string hashAlg="$5$"; // le préfixe $5$ indique un hash sha-256
-    //std::string salt = "$5$SomeSalt$";
-    //std::string saltString=generateSaltString(saltLength);
-    // saltString=hashAlg+saltString;
-    // std::cout<<saltString<<std::endl;
+    for(int i=0; i<numberOfTeams;i++)
+    {
+        cotes[i]=distribution(generator);
+    }
 
-    // const std::string hash = crypt(password.c_str(), saltString.c_str());
-
-    // std::cout << "Hash : " << hash << std::endl;
-    const std::string alreadyCalculatedSalt="p3rDwR6Zz8";
-    std::cout<<"Hash : "<<hash("password",alreadyCalculatedSalt,false)<<std::endl;
-
-    return 0;
+    return cotes;
 }
 
 //g++ -o hc hashcode.cpp -lcrypt
