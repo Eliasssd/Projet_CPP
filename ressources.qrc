@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ressources/olympicstake.svg</file>
+        <file>ressources/waves.svg</file>
+        <file>ressources/basketball/Algeria.png</file>
+        <file>ressources/basketball/Argentina.jpeg</file>
+        <file>ressources/basketball/Brazil.png</file>
+        <file>ressources/basketball/Canada.svg.png</file>
+        <file>ressources/basketball/France.svg.png</file>
+        <file>ressources/basketball/Germany.jpg</file>
+        <file>ressources/basketball/Italy.png</file>
+        <file>ressources/basketball/Japan.png</file>
+        <file>ressources/basketball/Spain.png</file>
+        <file>ressources/basketball/USA.png</file>
+        <file>ressources/football/Algeria.png</file>
+        <file>ressources/football/Argentina.svg.png</file>
+        <file>ressources/football/Brazil.svg.png</file>
+        <file>ressources/football/Canada.svg.png</file>
+        <file>ressources/football/France.svg.png</file>
+        <file>ressources/football/Germany.svg.png</file>
+        <file>ressources/football/Italy.svg.png</file>
+        <file>ressources/football/Japan.svg.png</file>
+        <file>ressources/football/Spain.svg.png</file>
+        <file>ressources/football/USA.svg.png</file>
+    </qresource>
+</RCC>
